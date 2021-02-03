@@ -1,5 +1,6 @@
 package com.example.redditclonepractice.controllers;
 
+import com.example.redditclonepractice.dto.AuthenticationResponse;
 import com.example.redditclonepractice.dto.LoginRequest;
 import com.example.redditclonepractice.dto.RegisterRequest;
 import com.example.redditclonepractice.exceptions.SpringRedditException;
@@ -29,8 +30,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequest loginRequest){
-        authService.login(loginRequest);
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
+        return authService.login(loginRequest);
     }
 
 }
