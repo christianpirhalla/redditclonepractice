@@ -1,5 +1,6 @@
 package com.example.redditclonepractice.services;
 
+import com.example.redditclonepractice.dto.LoginRequest;
 import com.example.redditclonepractice.dto.RegisterRequest;
 import com.example.redditclonepractice.exceptions.SpringRedditException;
 import com.example.redditclonepractice.model.NotificationEmail;
@@ -9,6 +10,8 @@ import com.example.redditclonepractice.repositories.UserRepository;
 import com.example.redditclonepractice.repositories.VerificationTokenRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,8 @@ public class AuthService {
     VerificationTokenRepository verificationTokenRepository;
     @Autowired
     MailService mailService;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Transactional
     public void signup(RegisterRequest registerRequest){
@@ -73,5 +78,9 @@ public class AuthService {
         );
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public void login(LoginRequest loginRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
     }
 }

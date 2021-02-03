@@ -1,5 +1,6 @@
 package com.example.redditclonepractice.controllers;
 
+import com.example.redditclonepractice.dto.LoginRequest;
 import com.example.redditclonepractice.dto.RegisterRequest;
 import com.example.redditclonepractice.exceptions.SpringRedditException;
 import com.example.redditclonepractice.services.AuthService;
@@ -25,6 +26,11 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable String token){
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public void login(@RequestBody LoginRequest loginRequest){
+        authService.login(loginRequest);
     }
 
 }
