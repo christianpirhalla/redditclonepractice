@@ -62,7 +62,7 @@ public class JwtProvider {
         }
     }
 
-    public String getUsernameFromJWt(String token){
+    public String getUsernameFromJwt(String token){
         Claims claims = parser()
                 .setSigningKey(getPublicKey())
                 .parseClaimsJws(token)
